@@ -12,7 +12,7 @@ The foundation. A clean, documented, reliable otpot on Python 3.10.
 - [x] Updated README with accurate install instructions
 
 **In Progress:**
-- [ ] Fix HTTP service leaking raw template tags (fingerprinting vulnerability)
+- [x] Fix HTTP service leaking raw template tags (fingerprinting vulnerability)
 - [ ] Run and document test suite status on Python 3.10
 - [ ] Fix noisy "Running on non-local interface" warning (fires once per protocol)
 - [ ] Replace deprecated `pkg_resources` usage in bin/conpot
@@ -31,7 +31,7 @@ The blocker is `cpppo`, the EtherNet/IP library that breaks on Python 3.11.
 Published research has identified conpot deployments via protocol inaccuracies.
 otpot should be harder to fingerprint than its predecessor.
 
-- [ ] Fix HTTP template rendering — raw `<condata>` tags leak in responses
+- [x] Fix HTTP template rendering — raw `<condata>` tags leak in responses
 - [ ] Audit S7Comm response accuracy against real Siemens hardware
 - [ ] Audit Modbus response timing and error codes
 - [ ] Audit SNMP OID responses for consistency across protocols
