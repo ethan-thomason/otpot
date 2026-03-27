@@ -11,6 +11,7 @@ Both conpot and riotpot are listed as inactive projects on the Honeynet Project 
 **What's different from conpot:**
 - Runs on Python 3.10 without workarounds or undocumented flags
 - Clean install process with documented dependencies
+- HTTP template rendering fixed — no more raw template tags leaking in responses
 - Active maintenance and issue response
 - New protocol templates targeting modern ICS environments (in progress)
 - Roadmap toward Ignition, OPC-UA, and EtherNet/IP improvements
@@ -32,7 +33,7 @@ Both conpot and riotpot are listed as inactive projects on the Honeynet Project 
 | MQTT | 1883 | 🔜 Planned |
 | Ignition Gateway | 8088 | 🔜 Planned |
 
-## Quick Start
+## Quick Start (Local / Development)
 
 ### Requirements
 
@@ -41,6 +42,7 @@ Both conpot and riotpot are listed as inactive projects on the Honeynet Project 
 - gcc
 
 ### Install
+
 ```bash
 # Install Python 3.10 (Ubuntu 24.04)
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -58,19 +60,98 @@ pip install -e .
 conpot --template default --config conpot/testing.cfg
 ```
 
+## Production Deployment
+
+### Requirements
+
+- A VPS or server running Ubuntu 22.04 / 24.04
+- **Do not run as root.** Create a dedicated user.
+
+### Setup
+
+```bash
+# Create a dedicated user
+useradd -m -s /bin/bash otpot
+
+# Install dependencies as root
+apt update && apt upgrade -y
+apt install -y python3.10 python3.10-venv python3.10-dev gcc git software-properties-common
+add-apt-repository ppa:deadsnakes/ppa
+apt update && apt install -y python3.10 python3.10-venv python3.10-dev
+
+# Switch to otpot user
+su - otpot
+
+# Clone and install
+git clone https://github.com/ethan-thomason/otpot.git
+cd otpot
+python3.10 -m venv venv
+source venv/bin/activate
+pip install -e .
+```
+
+### Run as a systemd service
+
+As root, create `/etc/systemd/system/otpot.service`:
+
+```ini
+[Unit]
+Description=otpot OT/ICS Honeypot
+After=network.target
+
+[Service]
+Type=simple
+User=otpot
+WorkingDirectory=/home/otpot/otpot
+ExecStart=/home/otpot/venv/bin/conpot --template default --config /home/otpot/otpot/conpot/testing.cfg
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then enable and start:
+
+```bash
+systemctl daemon-reload
+systemctl enable otpot
+systemctl start otpot
+systemctl status otpot
+```
+
+### Viewing logs
+
+```bash
+# Via journald
+journalctl -u otpot -f
+
+# Via log file
+tail -f /home/otpot/otpot/conpot.log
+
+# Filter out your own IP when sharing logs
+grep -v "YOUR_IP_HERE" /home/otpot/otpot/conpot.log
+```
+
+### DNS
+
+For more convincing deception, point a subdomain at your honeypot IP. A hostname like `plc01.yourcompany.com` looks significantly more like real OT infrastructure than a bare IP address. Avoid obviously research-oriented names.
+
 ## Roadmap
 
-See [ROADMAP.md](ROADMAP.md) for the full plan. High level:
+See [ROADMAP.md](ROADMAP.md) for the full plan. See [VISION.md](VISION.md) for the longer-term product direction.
+
+High level:
 
 - **Phase 1** — Python 3.10 stable, documented, test suite passing
 - **Phase 2** — Python 3.11 support (blocked on cpppo replacement)
-- **Phase 3** — HTTP fingerprinting fix
+- **Phase 3** — Anti-fingerprinting improvements
 - **Phase 4** — New protocol templates: Ignition gateway, OPC-UA, MQTT
-- **Phase 5** — Honeynet Project submission
+- **Phase 5** — Container-native deployment, T-Pot integration, Honeynet submission
 
 ## Contributing
 
-Issues and PRs welcome. If you're interested in ICS/OT security and want to contribute protocol knowledge, open an issue and introduce yourself.
+Issues and PRs welcome. If you are interested in ICS/OT security and want to contribute protocol knowledge, open an issue and introduce yourself.
 
 ## Attribution
 
