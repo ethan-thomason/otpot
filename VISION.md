@@ -123,7 +123,7 @@ The v1 milestone is a honeypot that passes casual inspection by a human operator
 
 ## The Ignition opportunity
 
-Inductive Automation's Ignition is the dominant SCADA platform in North American manufacturing. It has a specific, identifiable network fingerprint — HTTP gateway interface, OPC-UA endpoint, Gateway Network port, Perspective web client. Attackers scanning for industrial targets actively look for it.
+Inductive Automation's Ignition is a dominant SCADA platform in North American manufacturing. It has a specific, identifiable network fingerprint — HTTP gateway interface, OPC-UA endpoint, Gateway Network port, Perspective web client. Attackers scanning for industrial targets actively look for it.
 
 No open source honeypot currently emulates Ignition. This is otpot's most unique potential contribution. A convincing Ignition gateway honeypot would capture targeted threat intelligence that does not currently exist in the community — specific tooling, specific exploits, specific attacker behavior directed at the most widely deployed SCADA platform in North America.
 
