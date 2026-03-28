@@ -57,7 +57,7 @@ source venv/bin/activate
 pip install -e .
 
 # Run
-conpot --template default --config conpot/testing.cfg
+otpot --template default --config conpot/testing.cfg
 ```
 
 ## Production Deployment
@@ -103,7 +103,7 @@ After=network.target
 Type=simple
 User=otpot
 WorkingDirectory=/home/otpot/otpot
-ExecStart=/home/otpot/venv/bin/conpot --template default --config /home/otpot/otpot/conpot/testing.cfg
+ExecStart=/home/otpot/venv/bin/otpot --template default --config /home/otpot/otpot/conpot/testing.cfg
 Restart=always
 RestartSec=10
 
