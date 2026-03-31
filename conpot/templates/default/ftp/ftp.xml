@@ -4,13 +4,13 @@
             'USER', 'PASS', 'HELP', 'NOOP', 'QUIT', 'SITE HELP', 'SITE', 'SYST', 'TYPE', 'PASV',
             'PORT', 'ALLO', 'MODE', 'SIZE', 'PWD', 'MKD', 'RMD', 'CWD', 'CDUP', 'MDTM', 'DELE',
             'SITE CHMOD', 'RNFR', 'RNTO', 'STAT', 'LIST', 'NLST', 'RETR', 'REIN', 'ABOR', 'STOR',
-            'APPE', 'REST', 'STRU', 'STOU'
+            'APPE', 'REST', 'STRU', 'STOU', 'FEAT'
         </enabled_commands>
         <device_type>Siemens</device_type> <!-- Used in SYST FTP command-->
         <banner>FTP server ready.</banner>
         <max_login_attempts>3</max_login_attempts>
         <sever_timeout>40</sever_timeout>  <!-- server timeout in seconds -->
-        <motd> Technodrome - Mouser Factory. Authorized personnel only</motd>
+        <motd>SIMATIC S7 FTP Service. Authorized access only.</motd>
         <!-- Prefix and suffix names used when creating store unique files. -->
         <stou_suffix>conpot_test</stou_suffix>
         <stou_prefix>conpot_test</stou_prefix>

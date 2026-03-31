@@ -89,6 +89,9 @@ ftp_commands = {
     "NOOP": dict(
         perm=None, auth=False, arg=False, help="Syntax: NOOP (just do nothing)."
     ),
+    "FEAT": dict(
+        perm=None, auth=False, arg=False, help="Syntax: FEAT (list supported extensions)."
+    ),
     "PASS": dict(
         perm=None,
         auth=False,

@@ -75,6 +75,7 @@ class FTPConfig(object):
             "REST",
             "STRU",
             "STOU",
+            "FEAT",
         ]
         # Implementation Note: removing a command from here would make it unrecognizable in FTP server.
         self.enabled_commands = (
@@ -217,12 +218,8 @@ class FTPConfig(object):
             _path = _path.replace(self.root_path, self.root)
             _owner = int(_file.xpath("./owner_uid/text()")[0])
             _perms = oct(int(_file.xpath("./perms/text()")[0], 8))
-            _accessed = datetime.fromtimestamp(
-                float(_file.xpath("./last_accessed/text()")[0])
-            )
-            _modified = datetime.fromtimestamp(
-                float(_file.xpath("./last_modified/text()")[0])
-            )
+            _accessed = datetime.now()
+            _modified = datetime.now()
             self.vfs.chown(_path, _owner, self.default_group)
             self.vfs.chmod(_path, _perms)
             _fs = self.vfs.delegate_fs().delegate_fs()
@@ -234,12 +231,8 @@ class FTPConfig(object):
             _path = _path.replace(self.root_path, self.root)
             _owner = int(_dir.xpath("./owner_uid/text()")[0])
             _perms = oct(int(_dir.xpath("./perms/text()")[0], 8))
-            _accessed = datetime.fromtimestamp(
-                float(_dir.xpath("./last_accessed/text()")[0])
-            )
-            _modified = datetime.fromtimestamp(
-                float(_dir.xpath("./last_modified/text()")[0])
-            )
+            _accessed = datetime.now()
+            _modified = datetime.now()
             self.vfs.chown(_path, _owner, self.default_group, _recursive)
             self.vfs.chmod(_path, _perms)
             _fs = self.vfs.delegate_fs().delegate_fs()
