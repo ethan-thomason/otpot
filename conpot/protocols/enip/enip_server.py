@@ -16,6 +16,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import logging
+import random
 import socket
 import cpppo
 import contextlib
@@ -67,6 +68,7 @@ class EnipConfig(object):
         self.product_code = int(dom.xpath("//enip/device_info/ProductCode/text()")[0])
         self.product_name = dom.xpath("//enip/device_info/ProductName/text()")[0]
         self.serial_number = dom.xpath("//enip/device_info/SerialNumber/text()")[0]
+        self.serial_number = random.randint(1, 0xFFFFFFFF)
         self.mode = dom.xpath("//enip/mode/text()")[0]
         self.timeout = float(dom.xpath("//enip/timeout/text()")[0])
         self.latency = float(dom.xpath("//enip/latency/text()")[0])
@@ -104,7 +106,7 @@ class EnipServer(object):
         self.tags = cpppo.dotdict()
         self.set_tags()
 
-        logger.debug("ENIP server serial number: " + self.config.serial_number)
+        logger.debug("ENIP server serial number: " + str(self.config.serial_number))
         logger.debug("ENIP server product name: " + self.config.product_name)
 
     def stats_for(self, peer):
