@@ -1,0 +1,43 @@
+<core>
+    <template>
+        <entity name="unit">Ignition Gateway</entity>
+        <entity name="vendor">Inductive Automation</entity>
+        <entity name="description">Simulation of an Inductive Automation Ignition Gateway 8.1.x</entity>
+        <entity name="protocols">HTTP</entity>
+        <entity name="creator">otpot</entity>
+    </template>
+    <databus>
+        <key_value_mappings>
+            <key name="GatewayName">
+                <value type="value">"Ignition-gateway"</value>
+            </key>
+            <key name="SystemName">
+                <value type="value">"Ignition Gateway"</value>
+            </key>
+            <key name="SystemDescription">
+                <value type="value">"Inductive Automation Ignition 8.1.50"</value>
+            </key>
+            <key name="Uptime">
+                <value type="function">conpot.emulators.misc.uptime.Uptime</value>
+            </key>
+            <key name="sysContact">
+                <value type="value">"admin"</value>
+            </key>
+            <key name="sysName">
+                <value type="value">"Ignition-gateway"</value>
+            </key>
+            <key name="sysLocation">
+                <value type="value">""</value>
+            </key>
+            <key name="sysObjectID">
+                <value type="value">"0.0"</value>
+            </key>
+            <key name="sysServices">
+                <value type="value">"72"</value>
+            </key>
+            <key name="empty">
+                <value type="value">""</value>
+            </key>
+        </key_value_mappings>
+    </databus>
+</core>
