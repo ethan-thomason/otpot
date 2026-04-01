@@ -7,7 +7,7 @@
             'APPE', 'REST', 'STRU', 'STOU', 'FEAT'
         </enabled_commands>
         <device_type>Siemens</device_type> <!-- Used in SYST FTP command-->
-        <banner>FTP server ready.</banner>
+        <banner>SIMATIC S7 FTP Service. Authorized access only.</banner>
         <max_login_attempts>3</max_login_attempts>
         <sever_timeout>40</sever_timeout>  <!-- server timeout in seconds -->
         <motd>SIMATIC S7 FTP Service. Authorized access only.</motd>
