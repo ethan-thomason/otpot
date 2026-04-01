@@ -55,6 +55,51 @@
                 <entity name="Expires">Thu, 01 Jan 1970 00:00:00 GMT</entity>
             </headers>
         </node>
+        <node name="/idp/default/authn/login">
+            <headers>
+                <entity name="Content-Type">text/html;charset=utf-8</entity>
+                <entity name="Cache-Control">no-cache, no-store</entity>
+                <entity name="Pragma">no-cache</entity>
+                <entity name="Expires">Thu, 01 Jan 1970 00:00:00 GMT</entity>
+            </headers>
+        </node>
+        <node name="/res/sys/js/authentication/authentication.js">
+            <headers>
+                <entity name="Content-Type">application/javascript</entity>
+            </headers>
+        </node>
+        <node name="/web/wicket/resource/com.inductiveautomation.ignition.gateway.web.pages.BasePage/css/main-ver-2112EDC103060D32E4259DE02F1A5D25.css">
+            <headers>
+                <entity name="Content-Type">text/css</entity>
+            </headers>
+        </node>
+        <node name="/idp/default/oidc/auth">
+            <headers>
+                <entity name="Content-Type">application/json</entity>
+                <entity name="Cache-Control">no-cache, no-store</entity>
+            </headers>
+        </node>
+        <node name="/res/sys/img/icons/standard/gateway-standard.png">
+            <headers><entity name="Content-Type">image/png</entity></headers>
+        </node>
+        <node name="/res/sys/img/authentication/scan-badge.png">
+            <headers><entity name="Content-Type">image/png</entity></headers>
+        </node>
+        <node name="/favicon.ico">
+            <headers><entity name="Content-Type">image/x-icon</entity></headers>
+        </node>
+        <node name="/res/sys/fonts/NotoSans/noto-sans-v8-latin-regular.ttf">
+            <headers><entity name="Content-Type">font/ttf</entity></headers>
+        </node>
+        <node name="/res/sys/fonts/NotoSans/noto-sans-v8-latin-medium.ttf">
+            <headers><entity name="Content-Type">font/ttf</entity></headers>
+        </node>
+        <node name="/res/sys/img/header/ignition_header_simple.svg">
+            <headers><entity name="Content-Type">image/svg+xml</entity></headers>
+        </node>
+        <node name="/res/sys/img/footer/standard-edition-footer-logo.png">
+            <headers><entity name="Content-Type">image/png</entity></headers>
+        </node>
     </htdocs>
 
     <statuscodes>

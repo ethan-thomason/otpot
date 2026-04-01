@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ignition Authentication Gateway</title>
+<style>
+@font-face {
+    font-family: 'NotoSans';
+    src: url('/res/sys/fonts/NotoSans/noto-sans-v8-latin-regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'NotoSans';
+    src: url('/res/sys/fonts/NotoSans/noto-sans-v8-latin-medium.ttf') format('truetype');
+    font-weight: 500;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'NotoSans', 'Noto Sans', sans-serif;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+.left-panel {
+    width: 33%;
+    background: linear-gradient(160deg, #0d2137 0%, #0d3352 40%, #0e4068 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 40px;
+}
+.left-title {
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.left-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.left-logos img {
+    height: 36px;
+}
+.right-panel {
+    width: 67%;
+    background: #e8ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.gateway-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 14px;
+    background: #f5a020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -36px;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.gateway-icon svg {
+    width: 44px;
+    height: 44px;
+}
+.card {
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 56px 48px 40px;
+    width: 380px;
+    min-height: 240px;
+}
+.card-title {
+    text-align: center;
+    color: #333333;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 28px;
+}
+.field-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+.field-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #5b9bd5;
+    margin-bottom: 4px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+.field-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    outline: none;
+    font-size: 1rem;
+    font-family: 'NotoSans', sans-serif;
+    padding: 6px 0;
+    background: transparent;
+    color: #222222;
+    transition: border-color 0.2s;
+}
+.field-input:focus {
+    border-bottom: 2px solid #5b9bd5;
+}
+.btn-continue {
+    width: 100%;
+    padding: 12px;
+    background: #5b9bd5;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-family: 'NotoSans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.15s;
+    margin-top: 8px;
+}
+.btn-continue:hover { background: #4a87c0; }
+.error-msg {
+    color: #c0392b;
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+    text-align: center;
+    display: none;
+}
+.spinner {
+    display: none;
+    text-align: center;
+    padding: 16px 0;
+    color: #888;
+    font-size: 0.9rem;
+}
+.exit-btn {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background: none;
+    border: 1px solid #aaaaaa;
+    color: #555555;
+    font-family: 'NotoSans', sans-serif;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    cursor: pointer;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.exit-btn:hover { background: rgba(0,0,0,0.05); }
+#step-password { display: none; }
+</style>
+</head>
+<body>
+<div class="left-panel">
+    <div class="left-title">Log In</div>
+    <div class="left-logos">
+        <img src="/res/sys/img/footer/standard-edition-footer-logo.png" alt="Inductive Automation" style="height:36px;">
+    </div>
+</div>
+<div class="right-panel">
+    <div class="card-wrapper">
+        <div class="gateway-icon">
+            <img src="/res/sys/img/icons/standard/gateway-standard.png" alt="" style="width:52px;height:52px;object-fit:contain;">
+        </div>
+        <div class="card">
+            <p class="card-title">Log In to continue</p>
+            <div class="error-msg" id="error-msg">Invalid username or password.</div>
+            <div id="step-username">
+                <div class="field-group">
+                    <label class="field-label" for="username">Username</label>
+                    <input class="field-input" type="text" id="username" name="username" autocomplete="username" autofocus>
+                </div>
+                <button class="btn-continue" onclick="showPassword()">CONTINUE</button>
+            </div>
+            <div id="step-password">
+                <div class="field-group">
+                    <label class="field-label" for="password">Password</label>
+                    <input class="field-input" type="password" id="password" name="password" autocomplete="current-password">
+                </div>
+                <div class="spinner" id="spinner">Authenticating...</div>
+                <button class="btn-continue" id="btn-login" onclick="submitLogin()">LOG IN</button>
+            </div>
+        </div>
+    </div>
+    <button class="exit-btn" onclick="window.history.back()">EXIT LOGIN</button>
+</div>
+<script>
+function showPassword() {
+    var u = document.getElementById('username').value.trim();
+    if (!u) { document.getElementById('username').focus(); return; }
+    document.getElementById('step-username').style.display = 'none';
+    document.getElementById('step-password').style.display = 'block';
+    document.getElementById('password').focus();
+}
+document.getElementById('username').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') showPassword();
+});
+function submitLogin() {
+    var u = document.getElementById('username').value.trim();
+    var p = document.getElementById('password').value;
+    document.getElementById('btn-login').style.display = 'none';
+    document.getElementById('spinner').style.display = 'block';
+    document.getElementById('error-msg').style.display = 'none';
+    fetch('/idp/default/authn/submit-username-password-challenge', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username: u, password: p})
+    }).then(function(r) {
+        setTimeout(function() { showError(); }, 800);
+    }).catch(function() { showError(); });
+}
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.getElementById('step-password').style.display === 'block') {
+        submitLogin();
+    }
+});
+function showError() {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('btn-login').style.display = 'block';
+    document.getElementById('error-msg').style.display = 'block';
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+}
+</script>
+</body>
+</html>
