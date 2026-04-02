@@ -105,7 +105,9 @@ class EnipServer(object):
         # all known tags
         self.tags = cpppo.dotdict()
         self.set_tags()
-
+        device.Object.config_loader["DEFAULT"]["Serial Number"] = str(
+            self.config.serial_number
+        )
         logger.debug("ENIP server serial number: " + str(self.config.serial_number))
         logger.debug("ENIP server product name: " + self.config.product_name)
 
