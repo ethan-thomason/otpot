@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Overview - Ignition Gateway</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<script src="/res/wicket/resource/org.apache.wicket.ajax.AbstractDefaultAjaxBehavior/res/js/wicket-ajax-jquery.min-ver-C328B0A9083E4C8B7CE1A4D6EDD56C77.cache.js" defer></script>
+<script src="/res/wicket/resource/com.inductiveautomation.ignition.gateway.web.pages.BasePage/js/main-ver-2112EDC103060D32E4259DE02F1A5D25.cache.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5;font-size:13px;color:#333;}
+.topbar{background:#1a2b3c;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:40px;}
+.logo{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.5px;}
+.logo span{color:#f5a020;}
+.gw-label{color:#8899aa;font-size:11px;margin-left:12px;}
+.topbar-left{display:flex;align-items:center;}
+.topbar-right{display:flex;align-items:center;gap:14px;font-size:11px;color:#8899aa;}
+.topbar-right a{color:#8899aa;text-decoration:none;}
+.get-designer{background:#2a7fd4;color:#fff;border:none;padding:5px 14px;border-radius:3px;font-size:11px;cursor:pointer;}
+.layout{display:flex;height:calc(100vh - 40px);}
+.sidebar{width:60px;background:#1a2b3c;display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:2px;flex-shrink:0;}
+.si{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:4px;cursor:pointer;color:#5a7888;font-size:9px;text-decoration:none;}
+.si.on{background:#243545;color:#fff;}
+.si svg{width:18px;height:18px;}
+.subnav{width:200px;background:#243545;padding:12px 0;flex-shrink:0;overflow-y:auto;}
+.sn-hd{padding:8px 16px 4px;font-size:10px;font-weight:600;color:#4a6070;letter-spacing:0.08em;text-transform:uppercase;}
+.sn-item{padding:6px 16px;font-size:12px;color:#7a99aa;cursor:pointer;display:block;text-decoration:none;}
+.sn-item.on{color:#fff;background:#2e4055;}
+.sn-item:hover{color:#c0d0d8;}
+.main{flex:1;overflow-y:auto;background:#f5f5f5;}
+.breadcrumb{padding:10px 20px;font-size:11px;color:#6688aa;border-bottom:1px solid #e0e0e0;background:#fff;}
+.breadcrumb b{color:#333;font-weight:400;}
+.content{padding:16px 20px;display:flex;gap:16px;}
+.content-main{flex:1;min-width:0;}
+.content-side{width:240px;flex-shrink:0;}
+.section-title{font-size:15px;font-weight:600;color:#1a2b3c;margin-bottom:12px;}
+.arch-row{display:flex;gap:12px;margin-bottom:16px;}
+.acard{background:#1a3a5c;color:#fff;border-radius:4px;padding:14px;}
+.acard-hdr{font-size:11px;color:#7aabcc;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.acard-hdr em{font-style:normal;}
+.badge{background:#2a5a8c;font-size:10px;padding:2px 8px;border-radius:2px;letter-spacing:0.05em;color:#7aabcc;}
+.acard-meta{font-size:11px;color:#9bbccc;line-height:2;}
+.acard-meta strong{color:#fff;font-weight:400;}
+.acard-stats{display:flex;gap:16px;margin-top:12px;}
+.astat{font-size:11px;color:#9bbccc;text-align:center;}
+.astat-val{font-size:15px;font-weight:600;color:#fff;display:block;}
+.gwnet{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:14px;margin-bottom:16px;}
+.gwnet-title{font-size:13px;font-weight:600;color:#1a2b3c;margin-bottom:10px;}
+.gwnet-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.gwnet-stat label{font-size:11px;color:#888;display:block;margin-bottom:4px;}
+.gwnet-stat span{font-size:22px;font-weight:300;color:#1a2b3c;}
+.gwnet-stat small{font-size:10px;color:#888;}
+.conn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.ccard{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:14px;display:flex;align-items:center;gap:12px;}
+.cicon{width:44px;height:44px;background:#eef4fa;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cicon svg{width:26px;height:26px;stroke:#4488aa;fill:none;stroke-width:1.5;}
+.cname{font-size:12px;font-weight:600;color:#1a2b3c;}
+.cval{font-size:11px;color:#888;margin-top:2px;}
+.scard{background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:14px;margin-bottom:12px;}
+.scard-title{font-size:13px;font-weight:600;color:#1a2b3c;margin-bottom:10px;}
+.srow{display:flex;justify-content:space-between;padding:4px 0;font-size:11px;border-bottom:1px solid #f0f0f0;}
+.srow:last-child{border-bottom:none;}
+.srow label{color:#888;}
+.srow span{color:#1a2b3c;}
+.srow a{color:#4488cc;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">Ignition<span>/</span></div>
+    <div class="gw-label">Ignition-ignition-gw &nbsp;|&nbsp; Master</div>
+  </div>
+  <div class="topbar-right">
+    <span>&#9679; admin</span>
+    <a href="/web/login">Log Out &#8594;</a>
+    <a href="#">Help &#9432;</a>
+    <button class="get-designer">Get Designer</button>
+  </div>
+</div>
+<div class="layout">
+  <div class="sidebar">
+    <a class="si" href="/web/home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Home
+    </a>
+    <a class="si on" href="/web/status/sys.overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Status
+    </a>
+    <a class="si" href="/web/config">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Config
+    </a>
+  </div>
+  <div class="subnav">
+    <div class="sn-hd">Systems</div>
+    <a class="sn-item on" href="/web/status/sys.overview">Overview</a>
+    <a class="sn-item" href="/web/status/sys.performance">Performance</a>
+    <a class="sn-item" href="/web/status/alarmpipelines.overview">Alarm Pipelines</a>
+    <a class="sn-item" href="/web/status/scripts.overview">Gateway Scripts</a>
+    <a class="sn-item" href="/web/status/modules.overview">Modules</a>
+    <a class="sn-item" href="/web/status/reports.overview">Reports</a>
+    <a class="sn-item" href="/web/status/sfcs.overview">SFCs</a>
+    <a class="sn-item" href="/web/status/tags.overview">Tags</a>
+    <div class="sn-hd">Connections</div>
+    <a class="sn-item" href="/web/status/db.overview">Databases</a>
+    <a class="sn-item" href="/web/status/designers.overview">Designers</a>
+    <a class="sn-item" href="/web/status/devices.overview">Devices</a>
+    <a class="sn-item" href="/web/status/gwnetwork.overview">Gateway Network</a>
+    <a class="sn-item" href="/web/status/opc.overview">OPC Connections</a>
+    <a class="sn-item" href="/web/status/perspective.overview">Perspective Sessions</a>
+    <a class="sn-item" href="/web/status/vision.overview">Vision Clients</a>
+    <div class="sn-hd">Diagnostics</div>
+    <a class="sn-item" href="/web/status/sys.execution">Execution</a>
+    <a class="sn-item" href="/web/status/sys.logs">Logs</a>
+    <a class="sn-item" href="/web/status/metrics.overview">Metrics Dashboard</a>
+    <a class="sn-item" href="/web/status/sys.running">Running Scripts</a>
+    <a class="sn-item" href="/web/status/sys.threads">Threads</a>
+  </div>
+  <div class="main">
+    <div class="breadcrumb">Status &rsaquo; Systems &rsaquo; <b>Overview</b></div>
+    <div class="content">
+      <div class="content-main">
+        <div class="section-title">Architecture</div>
+        <div class="arch-row">
+          <div class="acard" style="flex:1;">
+            <div class="acard-hdr">
+              <span>Gateway &nbsp;|&nbsp; <em>Ignition-ignition-gw</em></span>
+              <span class="badge">STANDALONE</span>
+            </div>
+            <div class="acard-meta">
+              Version: <strong>8.1.50 (b2025093011)</strong><br>
+              License: <strong>Standard</strong><br>
+              Uptime: <strong id="uptime">3 days</strong>
+            </div>
+            <div class="acard-stats">
+              <div class="astat"><span class="astat-val">2%</span>cpu</div>
+              <div class="astat"><span class="astat-val">412 mb</span>heap</div>
+            </div>
+          </div>
+        </div>
+        <div class="gwnet">
+          <div class="gwnet-title">Gateway Network</div>
+          <div class="gwnet-stats">
+            <div class="gwnet-stat"><label>Active Connections</label><span>0<small>/0</small></span></div>
+            <div class="gwnet-stat"><label>Remote Gateways</label><span>0</span></div>
+            <div class="gwnet-stat"><label>Bytes Sent</label><span>0<small> B/sec</small></span></div>
+            <div class="gwnet-stat"><label>Bytes Received</label><span>0<small> B/sec</small></span></div>
+          </div>
+        </div>
+        <div class="section-title">Connections</div>
+        <div class="conn-grid">
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+            <div><div class="cname">Databases</div><div class="cval">0 / 0 connected</div></div>
+          </div>
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div><div class="cname">Designer Sessions</div><div class="cval">0 open</div></div>
+          </div>
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+            <div><div class="cname">Devices</div><div class="cval">0 enabled</div></div>
+          </div>
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+            <div><div class="cname">OPC Connections</div><div class="cval">0 / 0 connected</div></div>
+          </div>
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div><div class="cname">Perspective Sessions</div><div class="cval">0 open</div></div>
+          </div>
+          <div class="ccard">
+            <div class="cicon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+            <div><div class="cname">Vision Clients</div><div class="cval">0 open</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="content-side">
+        <div class="scard">
+          <div class="scard-title">Environment</div>
+          <div class="srow"><label>Process Id</label><span>1842</span></div>
+          <div class="srow"><label>Operating System</label><span>Linux | amd64</span></div>
+          <div class="srow"><label>Java Version</label><span>17.0.16+8-LTS</span></div>
+          <div class="srow"><label>Local Time</label><span id="localtime">--</span></div>
+          <div class="srow"><label>Disk Space</label><span>14gb / 20gb</span></div>
+          <div class="srow"><label>Detected NICs</label><span>10.10.1.100</span></div>
+        </div>
+        <div class="scard">
+          <div class="scard-title">Systems</div>
+          <div class="srow"><label>Alarm Pipelines</label><a href="/web/status/alarmpipelines.overview">0 active</a></div>
+          <div class="srow"><label>EAM Role</label><span>Unknown</span></div>
+          <div class="srow"><label>Modules</label><a href="/web/status/modules.overview">26 installed</a></div>
+          <div class="srow"><label>Performance</label><a href="/web/status/sys.performance">2% CPU | 412mb</a></div>
+          <div class="srow"><label>Reports</label><a href="/web/status/reports.overview">0 scheduled</a></div>
+          <div class="srow"><label>SFCs</label><a href="/web/status/sfcs.overview">0 running</a></div>
+          <div class="srow"><label>Tags</label><a href="/web/status/tags.overview">0 tags</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  function tick(){
+    var d=new Date();
+    var h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
+    var ampm=h>=12?'PM':'AM';
+    h=h%12||12;
+    document.getElementById('localtime').textContent=
+      h+':'+(m<10?'0':'')+m+':'+(s<10?'0':'')+s+' '+ampm;
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>

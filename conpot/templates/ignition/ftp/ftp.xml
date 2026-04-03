@@ -1,4 +1,4 @@
-<ftp enabled="True" host="0.0.0.0" port="2121">
+<ftp enabled="False" host="0.0.0.0" port="2121">
     <device_info>
         <enabled_commands>
             'USER', 'PASS', 'HELP', 'NOOP', 'QUIT', 'SITE HELP', 'SITE', 'SYST', 'TYPE', 'PASV',
@@ -27,7 +27,7 @@
                 <password>test</password>
             </user>
         </users>
-        <anon_login enabled="True" uid="32">
+        <anon_login enabled="False" uid="32">
             <uname>ftp</uname>   <!-- this is the user name with which anon would read/write files. gid is same as with
              user group. -->
         </anon_login>

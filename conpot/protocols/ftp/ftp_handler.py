@@ -101,6 +101,7 @@ class FTPCommandChannel(FTPHandlerBase):
     def do_NOOP(self, arg):
         """Do nothing. No params required. No auth required and no permissions required."""
         self.respond(b"200 I successfully done nothin'.")
+
     def do_FEAT(self, arg):
         """List supported feature extensions per RFC 2389."""
         self.respond(b"211-Features supported:\r\n SIZE\r\n MDTM\r\n211 End")

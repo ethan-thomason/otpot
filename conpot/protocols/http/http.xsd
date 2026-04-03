@@ -95,6 +95,25 @@
                                         </xs:element>
                                         <xs:element type="xs:string" name="alias" minOccurs="0">
                                         </xs:element>
+                                        <xs:element name="credential_check" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="success_redirect" minOccurs="0"/>
+                                                    <xs:element name="credentials" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="pair" maxOccurs="unbounded" minOccurs="0">
+                                                                    <xs:complexType>
+                                                                        <xs:attribute type="xs:string" name="username" use="required"/>
+                                                                        <xs:attribute type="xs:string" name="password" use="required"/>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
                                     </xs:sequence>
                                     <xs:attribute type="xs:string" name="name" use="required"/>
                                 </xs:complexType>
@@ -110,6 +129,21 @@
                                     <xs:sequence>
                                         <xs:element type="xs:byte" name="tarpit"/>
                                         <xs:element type="xs:string" name="proxy" minOccurs="0" maxOccurs="1"/>
+                                        <xs:element name="headers" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="entity" maxOccurs="unbounded" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:simpleContent>
+                                                                <xs:extension base="xs:string">
+                                                                    <xs:attribute type="xs:string" name="name" use="required"/>
+                                                                </xs:extension>
+                                                            </xs:simpleContent>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
                                         <xs:element name="entity">
                                             <xs:complexType>
                                                 <xs:simpleContent>

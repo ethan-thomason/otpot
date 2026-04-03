@@ -22,14 +22,21 @@
             <status>302</status>
             <headers>
                 <entity name="Content-Type">text/html</entity>
-                <entity name="Location">/web/home</entity>
+                <entity name="Location">/web/login</entity>
             </headers>
         </node>
         <node name="/web/home">
             <status>302</status>
             <headers>
                 <entity name="Content-Type">text/html</entity>
-                <entity name="Location">/web/status/sys.overview</entity>
+                <entity name="Location">/web/login</entity>
+            </headers>
+        </node>
+        <node name="/web/login">
+            <status>302</status>
+            <headers>
+                <entity name="Content-Type">text/html</entity>
+                <entity name="Location">/idp/default/authn/login</entity>
             </headers>
         </node>
         <node name="/StatusPing">
@@ -100,6 +107,32 @@
         <node name="/res/sys/img/footer/standard-edition-footer-logo.png">
             <headers><entity name="Content-Type">image/png</entity></headers>
         </node>
+        <node name="/web/status/sys.overview">
+            <headers>
+                <entity name="Content-Type">text/html;charset=utf-8</entity>
+                <entity name="Cache-Control">no-cache, no-store</entity>
+                <entity name="Pragma">no-cache</entity>
+                <entity name="Expires">Thu, 01 Jan 1970 00:00:00 GMT</entity>
+            </headers>
+        </node>
+        <node name="/idp/default/authn/submit-username-password-challenge">
+            <headers>
+                <entity name="Content-Type">application/json</entity>
+                <entity name="Cache-Control">no-cache, no-store</entity>
+            </headers>
+            <credential_check>
+                <success_redirect>/web/status/sys.overview</success_redirect>
+                <credentials>
+                    <pair username="admin" password="admin"/>
+                    <pair username="administrator" password="password"/>
+                    <pair username="ignition" password="ignition"/>
+                    <pair username="Administrator" password="password"/>
+                    <pair username="admin" password="password"/>
+                    <pair username="admin" password="12345"/>
+                    <pair username="admin" password="1234"/>
+                </credentials>
+            </credential_check>
+        </node>
     </htdocs>
 
     <statuscodes>
@@ -109,6 +142,9 @@
         </status>
         <status name="404">
             <tarpit>0</tarpit>
+            <headers>
+                <entity name="Content-Type">text/html</entity>
+            </headers>
             <entity name="Content-Type">text/html</entity>
         </status>
         <status name="501">

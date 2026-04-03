@@ -210,7 +210,7 @@ function showPassword() {
     document.getElementById('password').focus();
 }
 document.getElementById('username').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') showPassword();
+    if (e.key === 'Enter') { e.stopPropagation(); showPassword(); }
 });
 function submitLogin() {
     var u = document.getElementById('username').value.trim();
@@ -223,7 +223,13 @@ function submitLogin() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username: u, password: p})
     }).then(function(r) {
-        setTimeout(function() { showError(); }, 800);
+        return r.json();
+    }).then(function(data) {
+        if (data && data.success) {
+            window.location.href = (data.redirect || '/web/status/sys.overview');
+        } else {
+            setTimeout(function() { showError(); }, 800);
+        }
     }).catch(function() { showError(); });
 }
 document.addEventListener('keydown', function(e) {
