@@ -1180,7 +1180,10 @@ class SubHTTPServer(ThreadedHTTPServer):
                         self.tarpit = self.config_sanitize_tarpit(entity.text)
 
         # load global headers from XML
-        self.global_headers = []
+        # A Date header marked for updating is stored with a None value and
+        # rendered per-response by the global_headers property, so that every
+        # response carries the current time (RFC 9110 Section 6.6.1).
+        self._global_headers = []
         xml_headers = self.configuration.xpath("//http/global/headers/*")
         if xml_headers:
             # retrieve all headers assigned to this status code
@@ -1189,16 +1192,22 @@ class SubHTTPServer(ThreadedHTTPServer):
                     header.attrib["name"].lower() == "date"
                     and self.update_header_date is True
                 ):
-                    # All HTTP date/time stamps MUST be represented in Greenwich Mean Time (GMT),
-                    # without exception ( RFC-2616 )
-                    self.global_headers.append(
-                        (
-                            header.attrib["name"],
-                            time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime()),
-                        )
-                    )
+                    self._global_headers.append((header.attrib["name"], None))
                 else:
-                    self.global_headers.append((header.attrib["name"], header.text))
+                    self._global_headers.append((header.attrib["name"], header.text))
+
+    @property
+    def global_headers(self):
+        """Global headers with any auto-updating Date rendered at call time.
+
+        All HTTP date/time stamps MUST be represented in Greenwich Mean Time
+        (GMT), without exception (RFC-2616).
+        """
+        now = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
+        return [
+            (name, now if value is None else value)
+            for name, value in self._global_headers
+        ]
 
     def config_sanitize_tarpit(self, value):
         # checks tarpit value for being either a single int or float,
