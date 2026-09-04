@@ -914,7 +914,9 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
         # check for credential endpoint before normal entity lookup
         try:
             cred_check = configuration.xpath(
-                '//http/htdocs/node[@name="' + self.path.partition("?")[0] + '"]/credential_check'
+                '//http/htdocs/node[@name="'
+                + self.path.partition("?")[0]
+                + '"]/credential_check'
             )
         except etree.XPathEvalError:
             cred_check = None
@@ -922,6 +924,7 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
         if cred_check and post_data:
             import json as _json
             import urllib.parse as _urlparse
+
             content_type = self.headers.get("Content-Type", "")
             try:
                 if "application/json" in content_type:
@@ -929,7 +932,9 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
                     username = params.get("username", "")
                     password = params.get("password", "")
                 else:
-                    params = _urlparse.parse_qs(post_data.decode("utf-8", errors="replace"))
+                    params = _urlparse.parse_qs(
+                        post_data.decode("utf-8", errors="replace")
+                    )
                     username = params.get("username", [""])[0]
                     password = params.get("password", [""])[0]
             except Exception:
@@ -938,23 +943,31 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
 
             logger.warning(
                 "HTTP credential attempt from %s: username=%r password=%r",
-                self.client_address[0], username, password
+                self.client_address[0],
+                username,
+                password,
             )
 
             valid_pairs = cred_check[0].xpath("credentials/pair")
             success = any(
-                c.attrib.get("username") == username and c.attrib.get("password") == password
+                c.attrib.get("username") == username
+                and c.attrib.get("password") == password
                 for c in valid_pairs
             )
 
             if success:
                 logger.warning(
                     "HTTP credential SUCCESS from %s: username=%r",
-                    self.client_address[0], username
+                    self.client_address[0],
+                    username,
                 )
                 redirect_nodes = cred_check[0].xpath("success_redirect/text()")
-                redirect_url = redirect_nodes[0] if redirect_nodes else "/web/status/sys.overview"
-                response_body = _json.dumps({"success": True, "redirect": redirect_url}).encode()
+                redirect_url = (
+                    redirect_nodes[0] if redirect_nodes else "/web/status/sys.overview"
+                )
+                response_body = _json.dumps(
+                    {"success": True, "redirect": redirect_url}
+                ).encode()
             else:
                 response_body = b'{"success": false}'
 
@@ -966,8 +979,11 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(response_body)
             self.log(
-                self.request_version, self.command, self.client_address,
-                (self.path, self.headers._headers, post_data), 200
+                self.request_version,
+                self.command,
+                self.client_address,
+                (self.path, self.headers._headers, post_data),
+                200,
             )
             return
 
